@@ -60,6 +60,8 @@ contexts:
         - match: '(CONFIGURATION[0-9.]++|DATABASES|PROJ LOG|Building|Control function|Mass Flow|Control mass)'
           scope: keyword.espr
           set: tag_data
+        - match: '$\n?'
+          pop: true
 
   tag_data:    
     - meta_content_scope: string.espr

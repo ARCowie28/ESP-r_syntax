@@ -5,7 +5,7 @@
 # v1.2 18/1/18
 # A Cowie
 name: ESP-r
-file_extensions: [cfg, cnn, ctl, afn, geo, con, opr, tmc, dfd]
+file_extensions: [cfg, cnn, ctl, afn, geo, con, opr, tmc, dfd, fmi]
 scope: text.espr
 
 contexts:
@@ -52,8 +52,8 @@ contexts:
 
   major_tags:
     # Major tag-data entries begin with a '*', followed by a space,
-    # then a keyword. Any subsequent text is data. These entries finish
-    # at the end of the line.
+    # then a keyword or keywords. Any subsequent text is data. 
+    # These entries finish at the end of the line.
     - match: '^\*\s+'
       scope: keyword.espr
       set:

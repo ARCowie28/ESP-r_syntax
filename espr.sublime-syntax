@@ -47,7 +47,7 @@ contexts:
     # and any subsequent text is the data. These entries finish at the 
     # end of the line.
     - match: '^\*[^ ,\t\n]+[ ,\t\n]' 
-      scope: variable.parameter.espr
+      scope: keyword.espr
       set: tag_data
 
   major_tags:

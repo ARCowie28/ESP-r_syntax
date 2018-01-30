@@ -19,7 +19,8 @@ contexts:
     # The main context is the initial starting point of our syntax.
     # Include other contexts from here (or specify them directly).
     - include: numbers
-    - include: tags
+    - include: minor_tags
+    - include: major_tags
 
   separators:
     # Doesn't do anything on most colour schemes.
@@ -41,13 +42,26 @@ contexts:
         - match: $\n?
           pop: true
 
-  tags:
-    # Tag-data entries begin with a '*', possibly followed by a word, 
+  minor_tags:
+    # Minor tag-data entries begin with a '*' followed by a word, 
     # and any subsequent text is the data. These entries finish at the 
     # end of the line.
-    - match: '^\*.*?( |,|\t|\n)' 
+    - match: '^\*[^ ,\t\n]+[ ,\t\n]' 
+      scope: variable.parameter.espr
+      set: tag_data
+
+  major_tags:
+    # Major tag-data entries begin with a '*', followed by a space,
+    # then a keyword. Any subsequent text is data. These entries finish
+    # at the end of the line.
+    - match: '^\*\s+'
       scope: keyword.espr
-      push:
-        - meta_content_scope: string.espr
-        - match: $\n?
-          pop: true
+      set:
+        - match: '(CONFIGURATION[0-9.]++|DATABASES|PROJ LOG|Building|Control function|Mass Flow|Control mass)'
+          scope: keyword.espr
+          set: tag_data
+
+  tag_data:    
+    - meta_content_scope: string.espr
+    - match: $\n?
+      pop: true

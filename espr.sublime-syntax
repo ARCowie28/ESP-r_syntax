@@ -54,13 +54,15 @@ contexts:
     # Major tag-data entries begin with a '*', followed by a space,
     # then a keyword or keywords. Any subsequent text is data. 
     # These entries finish at the end of the line.
+    # Unrecognised major tags will be highlighted.
     - match: '^\*\s+'
       scope: keyword.espr
       set:
-        - match: '(CONFIGURATION[0-9.]++|DATABASES|PROJ LOG|Building|Control function|Mass Flow|Control mass)'
+        - match: 'CONFIGURATION[0-9.]++|DATABASES|PROJ LOG|Building|end tdf|Control function|Mass Flow|Control mass'
           scope: keyword.espr
           set: tag_data
-        - match: '$\n?'
+        - match: '.*$'
+          scope: invalid.espr
           pop: true
 
   tag_data:    

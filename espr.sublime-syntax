@@ -1,0 +1,53 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+# ESP-r model file syntax highlighter for Sublime Text 3 
+# v1.2 18/1/18
+# A Cowie
+name: ESP-r
+file_extensions: [cfg, cnn, ctl, afn, geo, con, opr, tmc, dfd]
+scope: text.espr
+
+contexts:
+  # The prototype context is prepended to all contexts but those setting
+  # meta_include_prototype: false.
+  prototype:
+    - include: comments
+    - include: separators
+
+  main:
+    # The main context is the initial starting point of our syntax.
+    # Include other contexts from here (or specify them directly).
+    - include: numbers
+    - include: tags
+
+  separators:
+    # Doesn't do anything on most colour schemes.
+    - match: ','
+      scope: punctuation.separator.espr
+
+  numbers:
+    # Possible number formats are: 0, 0.0, 0h0, 0E0, 0.0E0
+    - match: '-?\b[0-9]+(\.[0-9]*(E-?[0-9]+)?|h[0-9]+)?\b'
+      scope: constant.numeric.espr
+
+  comments:
+    # Comments begin with a '#' and finish at the end of the line.
+    - match: '#'
+      scope: punctuation.definition.comment.espr
+      push:
+        - meta_include_prototype: false
+        - meta_scope: comment.espr
+        - match: $\n?
+          pop: true
+
+  tags:
+    # Tag-data entries begin with a '*', possibly followed by a word, 
+    # and any subsequent text is the data. These entries finish at the 
+    # end of the line.
+    - match: '^\*.*?( |,|\t|\n)' 
+      scope: keyword.espr
+      push:
+        - meta_content_scope: string.espr
+        - match: $\n?
+          pop: true
